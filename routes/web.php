@@ -14,5 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return response(['code' => 200]);
 });
+
+
+Route::get('/', 'App\Http\Controllers\StaticPagesController@home');
+Route::get('/help', 'App\Http\Controllers\StaticPagesController@help');
+Route::get('/about', 'App\Http\Controllers\StaticPagesController@about');
