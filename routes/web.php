@@ -23,3 +23,5 @@ Route::get('/faq', 'App\Http\Controllers\StaticPagesController@help')->name('hel
 Route::get('/about', 'App\Http\Controllers\StaticPagesController@about')->name('about');
 
 Route::get('/signup', 'App\Http\Controllers\UsersController@create')->name('signup');
+
+Route::resource('users', 'App\Http\Controllers\UsersController');
