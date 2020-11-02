@@ -8,6 +8,19 @@ use App\Models\User;
 class UsersController extends Controller
 {
     /**
+     * UsersController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', [
+            'except' => ['show', 'create', 'store']
+        ]);
+        $this->middleware('guest', [
+            'only' => ['create']
+        ]);
+    }
+
+    /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      * @version  2020-11-2 10:26
      * @author   jiejia <jiejia2009@gmail.com>
@@ -33,13 +46,15 @@ class UsersController extends Controller
     /**
      * @param User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     * @version  2020-11-2 10:25
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @version  2020-11-2 11:13
      * @author   jiejia <jiejia2009@gmail.com>
      * @license  PHP Version 7.2.9
      */
     public function edit(User $user)
     {
         //dd($user);
+        $this->authorize('update', $user);
         return view('users.edit', ['user' => $user]);
     }
 
@@ -72,6 +87,7 @@ class UsersController extends Controller
 
     public function update(User $user, Request $request)
     {
+        $this->authorize('update', $user);
         $this->validate($request, [
            'name' => 'required|max:50',
            'password' => 'required|confirmed|min:6'
