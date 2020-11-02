@@ -25,3 +25,7 @@ Route::get('/about', 'App\Http\Controllers\StaticPagesController@about')->name('
 Route::get('/signup', 'App\Http\Controllers\UsersController@create')->name('signup');
 
 Route::resource('users', 'App\Http\Controllers\UsersController');
+
+Route::get('login', 'App\Http\Controllers\SessionsController@create')->name('login');
+Route::post('login', 'App\Http\Controllers\SessionsController@store')->name('login');
+Route::delete('logout', 'App\Http\Controllers\SessionsController@destroy')->name('logout');
