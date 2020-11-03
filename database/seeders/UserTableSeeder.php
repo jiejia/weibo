@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use App\Models\User;
 
 class UserTableSeeder extends Seeder
 {

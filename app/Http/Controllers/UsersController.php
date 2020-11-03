@@ -14,7 +14,7 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth', [
-            'except' => ['show', 'create', 'store']
+            'except' => ['show', 'create', 'store', 'index']
         ]);
         $this->middleware('guest', [
             'only' => ['create']
@@ -92,6 +92,16 @@ class UsersController extends Controller
         return redirect()->route('users.show', [$user]);
     }
 
+    /**
+     * @param User $user
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Illuminate\Validation\ValidationException
+     * @version  2020-11-3 9:55
+     * @author   jiejia <jiejia2009@gmail.com>
+     * @license  PHP Version 7.2.9
+     */
     public function update(User $user, Request $request)
     {
         $this->authorize('update', $user);
@@ -107,5 +117,21 @@ class UsersController extends Controller
 
         session()->flash('success', '个人资料更新成功');
         return redirect()->route('users.show', $user->id);
+    }
+
+    /**
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     * @version  2020-11-3 9:55
+     * @author   jiejia <jiejia2009@gmail.com>
+     * @license  PHP Version 7.2.9
+     */
+    public function destroy(User $user)
+    {
+        $this->authorize('destroy', $user);
+        $user->delete();
+        session()->flash('success', '成功删除用户！');
+        return back();
     }
 }

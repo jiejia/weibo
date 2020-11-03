@@ -17,6 +17,18 @@ Route::get('/', function () {
     return response(['code' => 200]);
 });
 
+Route::get('/clear', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+    Artisan::call('clear-compiled');
+   // Artisan::call('modelCache:clear');
+    //flash_success('操作成功');
+
+    //return redirect()->back();
+    return ['ok'];
+});
 
 Route::get('/', 'App\Http\Controllers\StaticPagesController@home')->name('home');
 Route::get('/faq', 'App\Http\Controllers\StaticPagesController@help')->name('help');
