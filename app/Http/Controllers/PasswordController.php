@@ -167,15 +167,24 @@ class PasswordController extends Controller
      */
     protected function sendEmailConfirmationTo($reset)
     {
+//        $view = 'emails.password_confirm';
+//        $data = compact('reset');
+//        $from = 'summer@example.com';
+//        $name = 'Summer';
+//        $to = $reset->email;
+//        $subject = "重置密码邮件。";
+//
+//        Mail::send($view, $data, function ($message) use ($from, $name, $to, $subject) {
+//            $message->from($from, $name)->to($to)->subject($subject);
+//        });
         $view = 'emails.password_confirm';
         $data = compact('reset');
-        $from = 'summer@example.com';
         $name = 'Summer';
         $to = $reset->email;
         $subject = "重置密码邮件。";
 
-        Mail::send($view, $data, function ($message) use ($from, $name, $to, $subject) {
-            $message->from($from, $name)->to($to)->subject($subject);
+        Mail::send($view, $data, function ($message) use ($name, $to, $subject) {
+            $message->to($to)->subject($subject);
         });
     }
 }
