@@ -38,8 +38,22 @@ Route::get('/signup', 'App\Http\Controllers\UsersController@create')->name('sign
 
 Route::resource('users', 'App\Http\Controllers\UsersController');
 
+/**
+ * 登录
+ */
 Route::get('login', 'App\Http\Controllers\SessionsController@create')->name('login');
 Route::post('login', 'App\Http\Controllers\SessionsController@store')->name('login');
 Route::delete('logout', 'App\Http\Controllers\SessionsController@destroy')->name('logout');
 
+/**
+ * 登录验证
+ */
 Route::get('/signup/confirm/{token}', 'App\Http\Controllers\UsersController@confirmEmail')->name('confirm_email');
+
+/**
+ * 重置密码
+ */
+Route::get('password/email', 'App\Http\Controllers\PasswordController@emailForm')->name('password.email_form');
+Route::post('password/email', 'App\Http\Controllers\PasswordController@email')->name('password.email');
+Route::get('password/reset/{token}', 'App\Http\Controllers\PasswordController@resetForm')->name('password.reset_form');
+Route::post('password/reset', 'App\Http\Controllers\PasswordController@reset')->name('password.reset');
