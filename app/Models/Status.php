@@ -9,6 +9,8 @@ class Status extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['content'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      * @version  2020-11-5 10:44

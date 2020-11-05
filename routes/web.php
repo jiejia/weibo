@@ -57,3 +57,8 @@ Route::get('password/email', 'App\Http\Controllers\PasswordController@emailForm'
 Route::post('password/email', 'App\Http\Controllers\PasswordController@email')->name('password.email');
 Route::get('password/reset/{token}', 'App\Http\Controllers\PasswordController@resetForm')->name('password.reset_form');
 Route::post('password/reset', 'App\Http\Controllers\PasswordController@reset')->name('password.reset');
+
+/**
+ * 微博
+ */
+Route::resource('statuses', 'App\Http\Controllers\StatusesController', ['only' => ['store', 'destroy']]);
