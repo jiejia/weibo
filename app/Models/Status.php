@@ -9,6 +9,8 @@ class Status extends Model
 {
     use HasFactory;
 
+    protected $table = 'statuses';
+
     protected $fillable = ['content'];
 
     /**
@@ -19,6 +21,6 @@ class Status extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
