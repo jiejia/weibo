@@ -66,4 +66,15 @@ class User extends Authenticatable
             $user->activated = false;
         });
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @version  2020-11-5 10:44
+     * @author   jiejia <jiejia2009@gmail.com>
+     * @license  PHP Version 7.2.9
+     */
+    public function statuses()
+    {
+        return $this->hasMany(Status::class);
+    }
 }
