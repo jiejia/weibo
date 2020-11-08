@@ -82,4 +82,61 @@ class User extends Authenticatable
     {
         return $this->statuses()->orderBy('created_at', 'desc');
     }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::Class, 'followers', 'user_id', 'follower_id');
+    }
+
+    public function followings()
+    {
+        return $this->belongsToMany(User::Class, 'followers', 'follower_id', 'user_id');
+    }
+
+    /**
+     * 关注用户
+     *
+     * @param $user_ids
+     * @version  2020-11-8 11:04
+     * @author   jiejia <jiejia2009@gmail.com>
+     * @license  PHP Version 7.2.9
+     */
+    public function follow($user_ids)
+    {
+        if (! is_array()) {
+            $user_ids = compact(['user_ids']);
+        }
+
+        $this->followings()->sync($user_ids, false);
+    }
+
+    /**
+     * 取消关注
+     *
+     * @param $user_ids
+     * @version  2020-11-8 11:05
+     * @author   jiejia <jiejia2009@gmail.com>
+     * @license  PHP Version 7.2.9
+     */
+    public function unfollow($user_ids)
+    {
+        if (! is_array()) {
+            $user_ids = compact(['user_ids']);
+        }
+        $this->followings()->detach($user_ids);
+    }
+
+    /**
+     * 判断关注的用户钟是否包含此id
+     *
+     * @param $userId
+     * @return mixed
+     * @version  2020-11-8 11:08
+     * @author   jiejia <jiejia2009@gmail.com>
+     * @license  PHP Version 7.2.9
+     */
+    public function isFollowing($userId)
+    {
+        return $this->followings()->contains($userId);
+    }
 }
