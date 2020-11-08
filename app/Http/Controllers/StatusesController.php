@@ -24,7 +24,7 @@ class StatusesController extends Controller
             'content' => $request['content']
         ]);
         session()->flash('success', '发布成功！');
-        return redirect()->back();
+        return redirect()->route('home');
     }
 
     public function destroy(Status $status)

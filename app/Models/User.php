@@ -78,9 +78,19 @@ class User extends Authenticatable
         return $this->hasMany(Status::class, 'user_id', 'id');
     }
 
+    /**
+     * @return mixed
+     * @version  2020-11-8 12:14
+     * @author   jiejia <jiejia2009@gmail.com>
+     * @license  PHP Version 7.2.9
+     */
     public function feed()
     {
-        return $this->statuses()->orderBy('created_at', 'desc');
+        $user_ids = $this->followings->pluck('id')->toArray();
+        array_push($user_ids, $this->id);
+        return Status::whereIn('user_id', $user_ids)
+            ->with('user')
+            ->orderBy('created_at', 'desc');
     }
 
     public function followers()
@@ -139,4 +149,6 @@ class User extends Authenticatable
     {
         return $this->followings->contains($userId);
     }
+
+
 }
