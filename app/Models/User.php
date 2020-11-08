@@ -103,7 +103,7 @@ class User extends Authenticatable
      */
     public function follow($user_ids)
     {
-        if (! is_array()) {
+        if (! is_array($user_ids)) {
             $user_ids = compact(['user_ids']);
         }
 
@@ -120,7 +120,7 @@ class User extends Authenticatable
      */
     public function unfollow($user_ids)
     {
-        if (! is_array()) {
+        if (! is_array($user_ids)) {
             $user_ids = compact(['user_ids']);
         }
         $this->followings()->detach($user_ids);
